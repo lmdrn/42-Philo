@@ -6,7 +6,7 @@
 /*   By: lmedrano <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 16:06:09 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/02 17:40:35 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/08 18:18:59 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ typedef struct s_philo
 
 /* ooo ----- ooo PROTOS ooo ----- ooo */
 
-int	ft_isspace(char c);
-int	ft_atoi(const char *str);
+int				ft_isspace(char c);
+long long int	ft_atoi(const char *str);
+int				ft_isdigit(int c);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lmedrano <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 17:39:14 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/02 17:39:31 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/08 18:14:12 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_isspace(char c)
 	return (0);
 }
 
-int	ft_atoi(const char *str)
+long long int	ft_atoi(const char *str)
 {
 	int		i;
 	int		is_neg;
@@ -45,5 +45,12 @@ int	ft_atoi(const char *str)
 			result = (str[i++] - '0') + (result * 10);
 		return (result * is_neg);
 	}
+	return (0);
+}
+
+int	ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
 	return (0);
 }

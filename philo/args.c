@@ -6,7 +6,7 @@
 /*   By: lmedrano <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 17:24:54 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/02 18:03:39 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/08 18:18:56 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,47 @@ int	args_error(int ac)
 	return (0);
 }
 
-int	check_minmax(int arg)
+int	check_minmax(int ac, char **av)
 {
-	if (arg < -2147483648 || arg > 2147483647)
+	int	i;
+
+	i = 1;
+	while (i < ac)
 	{
-		printf("below INT_MIN OR above INT_MAX\n");
-		return (EXIT_FAILURE);
+		if (ft_atoi(av[i]) < -2147483648 || ft_atoi(av[i]) > 2147483647)
+		{
+			printf("Int overflow\n");
+			return (EXIT_FAILURE);
+		}
+		i++;
 	}
 	return (0);
 }
 
-int	check_neg(int arg)
+int	check_letters(int ac, char **av)
 {
-	if (arg < 0)
+	int	i;
+	int	j;
+
+	i = 1;
+	while (i < ac)
 	{
-		printf("Please do not put negative numbers\n");
-		return (EXIT_FAILURE);
+		j = 0;
+		while (av[i][j] != '\0')
+		{
+			if (av[i][j] < '0')
+			{
+				printf("Not a positive number\n");
+				return (EXIT_FAILURE);
+			}
+			if (av[i][j] > '9')
+			{
+				printf("Not a number\n");
+				return (EXIT_FAILURE);
+			}
+			j++;
+		}
+		i++;
 	}
 	return (0);
 }
@@ -61,8 +86,6 @@ int	check_args(int ac, char **av)
 	while (i < ac)
 	{
 		arg = ft_atoi(av[i]);
-		check_neg(arg);
-		check_minmax(arg);
 		if (i == 1 && arg < 1)
 		{
 			printf("There should be at least 1 philo bro\n");
@@ -85,6 +108,9 @@ int	check_args(int ac, char **av)
 
 int	main(int ac, char **av)
 {
-	if (args_error(ac) == 0)
-		check_args(ac, av);
+	args_error(ac);
+	check_minmax(ac, av);
+	check_letters(ac, av);
+	check_args(ac, av);
+	return (0);
 }
