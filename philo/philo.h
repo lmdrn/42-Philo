@@ -6,7 +6,7 @@
 /*   By: lmedrano <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 16:06:09 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/08 18:18:59 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/08 19:00:34 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ typedef struct s_philo
 int				ft_isspace(char c);
 long long int	ft_atoi(const char *str);
 int				ft_isdigit(int c);
+int				init_data(int ac, char **av);
 
 #endif
