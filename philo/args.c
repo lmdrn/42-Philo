@@ -6,7 +6,7 @@
 /*   By: lmedrano <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 17:24:54 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/08 18:48:19 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/11 13:40:26 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,5 @@ int	check_args(int ac, char **av)
 		}
 		i++;
 	}
-	return (0);
-}
-
-int	main(int ac, char **av)
-{
-	if ((!args_error(ac)) && (!check_minmax(ac, av)) && (!check_letters(ac, av))
-		&& (!check_args(ac, av)))
-		init_data(ac, av);
 	return (0);
 }

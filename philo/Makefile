@@ -6,7 +6,7 @@
 #    By: lmedrano <lmedrano@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/20 21:10:54 by lmedrano          #+#    #+#              #
-#    Updated: 2023/08/01 15:57:55 by lmedrano         ###   ########.fr        #
+#    Updated: 2023/08/11 15:15:57 by lmedrano         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,8 @@ NAME		= philo
 CC 		= gcc
 
 CFLAGS		= -Wall -Werror -Wextra
+
+CFLAGS		+= -fsanitize=address -g3 
 
 RM		= rm -rf
 
