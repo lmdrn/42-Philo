@@ -6,7 +6,7 @@
 /*   By: lmedrano <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 18:21:22 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/11 16:02:44 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/12 16:17:57 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 int	init_data(int ac, char **av, t_data *data)
 {
-	long int		arg;
-
-	arg = ft_atoi(av[2]);
 	data->nbr_philo = ft_atoi(av[1]);
 	data->time_to_die = ft_atoi(av[2]);
 	data->time_to_eat = ft_atoi(av[3]);

@@ -6,7 +6,7 @@
 /*   By: lmedrano <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 16:06:09 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/11 17:09:13 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/12 16:19:37 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ typedef struct s_data
 	long long int	time_to_eat;
 	long long int	time_to_sleep;
 	unsigned int	meals_counter;
-	int				all_alive;
-	int				all_eaten;
+	unsigned int	all_alive;
+	unsigned int	all_eaten;
 	pthread_mutex_t	message;
 	long long int	start_time;
 }	t_data;
@@ -62,8 +62,15 @@ long int		get_current_time(void);
 long int		time_passed(long int start, long int end);
 long int		ft_usleep(long int time);
 int				assign_threads(t_data *data, t_philo *philo);
-int				check_all_alive(t_data *data, t_philo *philo);
+int				check_all_alive(t_data *data);
 void			*routine(void *arg);
+void			philo_forks(t_data *data, t_philo *philo);
+void			philo_eats(t_data *data, t_philo *philo);
+void			philo_sleeps(t_data *data, t_philo *philo);
+void			philo_thinks(t_data *data, t_philo *philo);
+void			faucheuse(t_data *data, t_philo *philo);
+int				time_to_die(t_data *data, t_philo *philo);
+int				we_are_full(t_data *data, t_philo *philo);
 int				destroy_threads(t_data *data, t_philo *philo);
 int				destroy_mutex(t_data *data, t_philo *philo);
 

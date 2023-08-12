@@ -6,7 +6,7 @@
 /*   By: lmedrano <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 13:11:15 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/11 15:57:30 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/12 16:19:15 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ int	assign_threads(t_data *data, t_philo *philo)
 	return (0);
 }
 
-int	check_all_alive(t_data *data, t_philo *philo)
+int	check_all_alive(t_data *data)
 {
-	if ((data->meals_counter < data->nbr_philo) && (philo->is_alive == 1)
-		&& ((data->time_to_sleep + data->time_to_eat) < data->time_to_die))
+	if ((data->all_alive == 1) && ((data->meals_counter == 0)
+			|| (data->all_eaten < data->nbr_philo)))
 		return (0);
 	return (1);
 }
