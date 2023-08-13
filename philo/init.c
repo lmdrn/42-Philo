@@ -6,7 +6,7 @@
 /*   By: lmedrano <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 18:21:22 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/12 16:17:57 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/13 18:42:31 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	init_data(int ac, char **av, t_data *data)
 		printf("There was an error during message mutex init\n");
 		return (EXIT_FAILURE);
 	}
-	start_timer(data);
 	return (0);
 }
 

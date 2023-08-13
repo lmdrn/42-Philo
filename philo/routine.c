@@ -6,7 +6,7 @@
 /*   By: lmedrano <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 15:42:48 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/12 16:26:23 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/13 17:36:27 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	data = &philo->data;
-	if (philo->id % 2 != 0)
+	if (philo->id % 2 == 0)
 		usleep(500);
 	while (check_all_alive(data))
 	{

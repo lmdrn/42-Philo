@@ -6,7 +6,7 @@
 /*   By: lmedrano <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 13:11:15 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/12 16:19:15 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/13 18:05:48 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	assign_threads(t_data *data, t_philo *philo)
 	unsigned int	i;
 
 	i = 0;
+	data->start_time = get_current_time();
 	if (data->nbr_philo == 1)
 		one_philo(data);
 	while (i < data->nbr_philo)

@@ -6,7 +6,7 @@
 /*   By: lmedrano <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 12:52:09 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/12 16:34:36 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/13 18:59:40 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,27 @@ int	main(int ac, char **av)
 		printf("Args error\n");
 		return (EXIT_FAILURE);
 	}
+	init_data(ac, av, &data);
 	philo = init_philo(&data);
-	if (init_data(ac, av, &data) != 0)
-		destroy_mutex(&data, philo);
-	if (philo != 0)
-	{
-		destroy_mutex(&data, philo);
-		destroy_threads(&data, philo);
-	}
 	faucheuse(&data, philo);
 	destroy_mutex(&data, philo);
 	destroy_threads(&data, philo);
 	return (0);
 }
 
-void	faucheuse(t_data *data, t_philo *philo)
+int	faucheuse(t_data *data, t_philo *philo)
 {
+	unsigned int	i;
+
 	while (1)
 	{
-		if (time_to_die(data, philo) == 1)
-			break ;
-		else if (we_are_full(data, philo) == 1)
-			break ;
+		i = 0;
+		while (i < data->nbr_philo)
+		{
+			if ((time_to_die(data, &philo[i])) || we_are_full(data))
+				return (EXIT_FAILURE);
+			i++;
+		}
 	}
+	return (EXIT_SUCCESS);
 }
