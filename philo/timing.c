@@ -6,7 +6,7 @@
 /*   By: lmedrano <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 12:41:17 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/13 18:12:51 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/15 16:40:49 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 long int	get_current_time(void)
 {
 	struct timeval	time;
-	long int		current_time;
+	double			current_time;
 
 	gettimeofday(&time, NULL);
 	current_time = (time.tv_sec * 1000) + (time.tv_usec / 1000);
@@ -37,6 +37,6 @@ void	ft_usleep(long int time)
 	while (sleep < time)
 	{
 		sleep = time_passed(current_time, get_current_time());
-		usleep(1000);
+		usleep(time / 10);
 	}	
 }

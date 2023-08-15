@@ -6,7 +6,7 @@
 /*   By: lmedrano <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 12:52:09 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/13 18:59:40 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/15 16:06:52 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,21 @@ int	main(int ac, char **av)
 	}
 	init_data(ac, av, &data);
 	philo = init_philo(&data);
-	faucheuse(&data, philo);
-	destroy_mutex(&data, philo);
-	destroy_threads(&data, philo);
+	if (faucheuse(&data, philo) != 0)
+	{
+		destroy_mutex(&data, philo);
+		destroy_threads(&data, philo);
+	}
 	return (0);
 }
 
 int	faucheuse(t_data *data, t_philo *philo)
 {
-	unsigned int	i;
-
 	while (1)
 	{
-		i = 0;
-		while (i < data->nbr_philo)
+		if ((time_to_die(data, philo) != 0) || (we_are_full(data, philo) != 0))
 		{
-			if ((time_to_die(data, &philo[i])) || we_are_full(data))
-				return (EXIT_FAILURE);
-			i++;
+			break ;
 		}
 	}
 	return (EXIT_SUCCESS);
