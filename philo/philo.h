@@ -6,7 +6,7 @@
 /*   By: lmedrano <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 16:06:09 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/15 17:05:36 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/16 12:01:19 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,10 @@
 typedef struct s_data
 {
 	unsigned int	nbr_philo;
-	long long int	time_to_die;
-	long long int	time_to_eat;
-	long long int	time_to_sleep;
+	unsigned long long	time_to_die;
+	unsigned long long	time_to_eat;
+	unsigned long long	time_to_sleep;
 	int				meals_counter;
-	unsigned int	all_alive;
-	unsigned int	all_eaten;
 	pthread_mutex_t	message;
 	long long int	start_time;
 	pthread_mutex_t	cadenas_mutex;
@@ -41,7 +39,7 @@ typedef struct s_philo
 	unsigned int	id;
 	pthread_t		thread;
 	int				meals_eaten;
-	long long int	last_meal;
+	unsigned long long last_meal;
 	pthread_mutex_t	mutex_philo;
 	pthread_mutex_t	mutex_meal;
 	pthread_mutex_t	right_fork;
@@ -61,9 +59,9 @@ int				check_letters(int ac, char **av);
 int				init_data(int ac, char **av, t_data *data);
 t_philo			*init_philo(t_data *data);
 int				philo_mutex_init(t_philo *philo);
-long int		get_current_time(void);
-long int		time_passed(long int start, long int end);
-void			ft_usleep(long int time);
+unsigned long long		get_current_time(void);
+unsigned long long		time_passed(unsigned long long start, unsigned long long end);
+void			ft_usleep(unsigned long long time);
 void			start_timer(t_data *data);
 int				one_philo(t_data *data);
 int				assign_threads(t_data *data, t_philo *philo);

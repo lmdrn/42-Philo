@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmedrano <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 13:23:09 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/15 17:22:07 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/16 13:24:07 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,11 @@ int	destroy_mutex(t_data *data, t_philo *philo)
 	return (0);
 }
 
+// FCT TIME_TO_DIE
+// Vérifie si le temps écoulé depuis le dernier repas d'un philosophe
+// est supérieur ou égal à data->time_to_die.
+//Si c'est le cas, elle déclare ce philosophe mort,
+// désactive le cadenas et imprime un message.
 unsigned int	time_to_die(t_data *data, t_philo *philo)
 {
 	unsigned int	i;
@@ -69,7 +74,7 @@ unsigned int	time_to_die(t_data *data, t_philo *philo)
 			data->cadenas = 0;
 			pthread_mutex_unlock(&data->cadenas_mutex);
 			pthread_mutex_lock(&data->message);
-			printf("%ld %d died\n", time_passed(data->start_time,
+			printf("%llu %d died\n", time_passed(data->start_time,
 					get_current_time()), philo->id);
 			pthread_mutex_unlock(&data->message);
 			pthread_mutex_unlock(&philo[i].mutex_philo);
@@ -81,6 +86,11 @@ unsigned int	time_to_die(t_data *data, t_philo *philo)
 	return (EXIT_SUCCESS);
 }
 
+//FCT WE_ARE_FULL
+//érifie si tous les philosophes ont mangé le nombre de repas requis
+// (data->meals_counter) en parcourant tous les philosophes. 
+//Si c'est le cas, elle désactive le cadenas
+// et imprime un message indiquant que tous les philosophes ont fini de manger.
 int	we_are_full(t_data *data, t_philo *philo)
 {
 	unsigned int	i;

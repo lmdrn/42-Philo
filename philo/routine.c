@@ -3,15 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmedrano <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/11 15:42:48 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/15 17:11:59 by lmedrano         ###   ########.fr       */
+/*   Created: 2023/08/16 12:06:25 by lmedrano          #+#    #+#             */
+/*   Updated: 2023/08/16 13:21:21 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+//FCT ROUTINE
+//Gère le cas où il y a un seul philosophe avec one_philo.
+//Sinon, Effectue le cycle "prendre une fourchette - manger - dormir - penser"
+// tant que le verrouillage du cadenas (data->cadenas) est actif.
+//Pour éviter le "problème du philosophe pair" 
+//(où tous les philosophes pairs prennent d'abord leur fourchette droite
+// et bloquent le système),
+// ajoute un délai de 500 ms 
+//pour les philosophes pairs avant de commencer leur cycle.
 void	*routine(void *arg)
 {
 	t_philo			*philo;
@@ -24,22 +33,25 @@ void	*routine(void *arg)
 		one_philo(data);
 		return (EXIT_SUCCESS);
 	}
-	if (philo->id % 2 == 0)
+	if (philo->id % 2)
 		usleep(500);
 	while (check_cadenas(data))
 	{
 		if (check_cadenas(data) != 0)
-			philo_forks(data, philo);
-		if (check_cadenas(data) != 0)
 			philo_eats(data, philo);
 		if (check_cadenas(data) != 0)
 			philo_sleeps(data, philo);
-		if (check_cadenas(data) != 0)
-			philo_thinks(data, philo);
 	}
 	return (0);
 }
 
+// FCT FORKS / EAT / SLEEP / THINK
+// Chacune met à jour l'état du philosophe (impression du message associé)
+// en fonction de l'action qu'il effectue
+// (prendre une fourchette, manger, dormir, penser).
+// Respecte la condition check_cadenas(data) avant de procéder,
+// ce qui assure qu'elles n'exécutent ces actions 
+// que si le cadenas est verrouillé.
 void	philo_forks(t_data *data, t_philo *philo)
 {
 	if (check_cadenas(data))
@@ -48,13 +60,13 @@ void	philo_forks(t_data *data, t_philo *philo)
 		pthread_mutex_lock(&data->message);
 		if (check_cadenas(data))
 		{
-			printf("%ld %d has taken a fork\n", time_passed(data->start_time,
+			printf("%llu %d has taken a fork\n", time_passed(data->start_time,
 					get_current_time()), philo->id);
 		}
 		pthread_mutex_lock(&philo->left_fork);
 		if (check_cadenas(data))
 		{
-			printf("%ld %d has taken a fork\n", time_passed(data->start_time,
+			printf("%llu %d has taken a fork\n", time_passed(data->start_time,
 					get_current_time()), philo->id);
 		}
 		pthread_mutex_unlock(&data->message);
@@ -65,10 +77,11 @@ void	philo_eats(t_data *data, t_philo *philo)
 {
 	if (check_cadenas(data))
 	{
+		philo_forks(data, philo);
 		pthread_mutex_lock(&data->message);
 		if (check_cadenas(data))
 		{
-			printf("%ld %d is eating\n", time_passed(data->start_time,
+			printf("%llu %d is eating\n", time_passed(data->start_time,
 					get_current_time()), philo->id);
 		}
 		pthread_mutex_unlock(&data->message);
@@ -91,11 +104,12 @@ void	philo_sleeps(t_data *data, t_philo *philo)
 		pthread_mutex_lock(&data->message);
 		if (check_cadenas(data))
 		{
-			printf("%ld %d is sleeping\n", time_passed(data->start_time,
+			printf("%llu %d is sleeping\n", time_passed(data->start_time,
 					get_current_time()), philo->id);
 		}
 		pthread_mutex_unlock(&data->message);
 		ft_usleep(data->time_to_sleep);
+		philo_thinks(data, philo);
 	}
 }
 
@@ -106,7 +120,7 @@ void	philo_thinks(t_data *data, t_philo *philo)
 		pthread_mutex_lock(&data->message);
 		if (check_cadenas(data))
 		{
-			printf("%ld %d is thinking\n", time_passed(data->start_time,
+			printf("%llu %d is thinking\n", time_passed(data->start_time,
 					get_current_time()), philo->id);
 		}
 		pthread_mutex_unlock(&data->message);

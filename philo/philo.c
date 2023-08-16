@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmedrano <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 12:52:09 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/15 16:06:52 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/16 13:18:51 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ int	main(int ac, char **av)
 	return (0);
 }
 
+// FCT FAUCHEUSE
+// Crée une boucle infinie qui vérifie continuellement
+// les conditions de fin de simulation 
+// à l'aide des fonctions time_to_die et we_are_full.
+// S'arrête dès qu'une de ces conditions est remplie.
 int	faucheuse(t_data *data, t_philo *philo)
 {
 	while (1)

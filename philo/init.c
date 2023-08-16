@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmedrano <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 18:21:22 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/15 17:05:59 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/16 13:17:28 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+//FCT INIT_DATA
+// Prend les arguments de la ligne de commande
+// et initialise les valeurs de la structure data. 
+// Attribue les valeurs des différents délais et paramètres
+// en fonction des arguments fournis. 
+// Initialise également les mutex pour les messages et le cadenas.
 
 int	init_data(int ac, char **av, t_data *data)
 {
@@ -32,6 +39,14 @@ int	init_data(int ac, char **av, t_data *data)
 	return (0);
 }
 
+//FCT ASSIGN_LEFT_FORK
+// Assigne correctement les fourchettes de gauche pour chaque philosophe
+// en fonction de leurs positions.
+// Prend en compte le fait qu'un philosophe partage une fourchette
+// avec son voisin de droite et la fourchette à sa gauche
+// avec le voisin de gauche
+// vérifie que le dernier philo prend donc bien
+// la fourchette du 1er philo et non de philo + 1
 void	assign_left_fork(t_data *data, t_philo *philo)
 {
 	unsigned int	i;
@@ -45,6 +60,13 @@ void	assign_left_fork(t_data *data, t_philo *philo)
 	philo[i].left_fork = philo[0].right_fork;
 }
 
+//FCT INIT_PHILO
+// Alloue de la mémoire pour un tableau de philosophes
+// Initialise chaque philosophe avec ses propriétés
+// ID, le nombre de repas mangés, le temps du dernier repas
+// et les données générales (data)
+// Appelle également philo_mutex_init 
+// pour initialiser les mutex spécifiques au philosophe.
 t_philo	*init_philo(t_data *data)
 {
 	t_philo			*philo;

@@ -3,15 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmedrano <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 13:11:15 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/15 17:22:06 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/16 13:27:37 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+//FCT ONE_PHILO
+// Gère le cas où il n'y a qu'un seul philosophe.
+// Imprime le message de prise de fourchette 
+// et attend le temps défini par data->time_to_die.
 int	one_philo(t_data *data)
 {
 	printf("0 1 has taken a fork\n");
@@ -19,6 +23,9 @@ int	one_philo(t_data *data)
 	return (0);
 }
 
+//FCT ASSIGN_THREADS
+//La boucle crée un thread pour chaque philosophe
+// en appelant la fonction pthread_create.
 int	assign_threads(t_data *data, t_philo *philo)
 {
 	unsigned int	i;
@@ -37,6 +44,11 @@ int	assign_threads(t_data *data, t_philo *philo)
 	return (EXIT_SUCCESS);
 }
 
+// FCT CHECK_CADENAS
+// Verrouille et déverrouille le cadenas
+// pour vérifier s'il est actif ou non.
+// Retourne EXIT_FAILURE si le cadenas est actif (simulation en cours)
+// et EXIT_SUCCESS si le cadenas est désactivé (simulation terminée).
 int	check_cadenas(t_data *data)
 {
 	pthread_mutex_lock(&data->cadenas_mutex);
