@@ -6,7 +6,7 @@
 /*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 12:06:25 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/16 13:21:21 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/16 13:39:31 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void	*routine(void *arg)
 		usleep(500);
 	while (check_cadenas(data))
 	{
-		if (check_cadenas(data) != 0)
+		if (check_cadenas(data))
 			philo_eats(data, philo);
-		if (check_cadenas(data) != 0)
+		if (check_cadenas(data))
 			philo_sleeps(data, philo);
 	}
 	return (0);

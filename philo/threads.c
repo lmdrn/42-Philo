@@ -6,7 +6,7 @@
 /*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 13:11:15 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/16 13:27:37 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/16 13:39:29 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,13 @@ int	check_cadenas(t_data *data)
 	if (data->cadenas == 1)
 	{
 		pthread_mutex_unlock(&data->cadenas_mutex);
+		printf("cadenas == 1\n");
 		return (EXIT_FAILURE);
 	}
 	else
 	{
 		pthread_mutex_unlock(&data->cadenas_mutex);
+		printf("cadenas != 1\n");
 		return (EXIT_SUCCESS);
 	}
 }
