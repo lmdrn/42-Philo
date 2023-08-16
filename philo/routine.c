@@ -6,7 +6,7 @@
 /*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 12:06:25 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/16 13:39:31 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/16 17:12:35 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	philo_forks(t_data *data, t_philo *philo)
 			printf("%llu %d has taken a fork\n", time_passed(data->start_time,
 					get_current_time()), philo->id);
 		}
-		pthread_mutex_lock(&philo->left_fork);
+		pthread_mutex_lock(philo->left_fork);
 		if (check_cadenas(data))
 		{
 			printf("%llu %d has taken a fork\n", time_passed(data->start_time,
@@ -86,7 +86,7 @@ void	philo_eats(t_data *data, t_philo *philo)
 		}
 		pthread_mutex_unlock(&data->message);
 		ft_usleep(data->time_to_eat);
-		pthread_mutex_unlock(&philo->left_fork);
+		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(&philo->right_fork);
 		pthread_mutex_lock(&philo->mutex_philo);
 		philo->last_meal = get_current_time();

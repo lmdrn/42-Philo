@@ -6,7 +6,7 @@
 /*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 12:41:17 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/16 13:25:30 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/16 16:42:48 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ void	ft_usleep(unsigned long long time)
 	while (sleep < time)
 	{
 		sleep = time_passed(current_time, get_current_time());
-		usleep(time / 10);
+		usleep(100);
 	}	
 }

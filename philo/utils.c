@@ -6,7 +6,7 @@
 /*   By: lmedrano <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 17:39:14 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/08 18:14:12 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/16 17:05:59 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,3 +54,17 @@ int	ft_isdigit(int c)
 		return (1);
 	return (0);
 }
+
+/* void	print_message(t_data *data, t_philo *philo, char *message) */
+/* { */
+/* 	if (check_cadenas(data)) */
+/* 	{ */
+/* 		pthread_mutex_lock(&data->message); */
+/* 		if (check_cadenas(data)) */
+/* 		{ */
+/* 			printf("%llu %d %s\n", time_passed(data->start_time, */
+/* 					get_current_time()), philo->id, message); */
+/* 		} */
+/* 		pthread_mutex_unlock(&data->message); */
+/* 	} */
+/* } */

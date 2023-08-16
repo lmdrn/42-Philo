@@ -6,7 +6,7 @@
 /*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 12:52:09 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/16 14:29:52 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/16 17:33:50 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,29 @@ int	main(int ac, char **av)
 		printf("Args error\n");
 		return (EXIT_FAILURE);
 	}
-	init_data(ac, av, &data);
-	philo = init_philo(&data);
-	if (faucheuse(&data, philo) != 0)
+	if (init_data(ac, av, &data) != 0)
 	{
+		printf("init data error\n");
+		return (EXIT_FAILURE);
+	}
+	philo = init_philo(&data);
+	if (philo == NULL)
+	{
+		printf("init philo error\n");
 		destroy_mutex(&data, philo);
 		destroy_threads(&data, philo);
+		return (EXIT_FAILURE);
 	}
+	if (faucheuse(&data, philo) != 0)
+	{
+		printf("faucheuse did not take any lives\n");
+		destroy_mutex(&data, philo);
+		destroy_threads(&data, philo);
+		return (EXIT_FAILURE);
+	}
+	destroy_mutex(&data, philo);
+	destroy_threads(&data, philo);
+	/* ft_exit(&data, philo); */
 	return (0);
 }
 
@@ -43,9 +59,12 @@ int	faucheuse(t_data *data, t_philo *philo)
 	while (1)
 	{
 		if ((time_to_die(data, philo) != 0) || (we_are_full(data, philo) != 0))
-		{
 			break ;
-		}
 	}
-	return (EXIT_SUCCESS);
+	return (0);
 }
+
+/* int	ft_exit(t_data *data, t_philo *philo) */
+/* { */
+/* 	return (EXIT_FAILURE); */
+/* } */

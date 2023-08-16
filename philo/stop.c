@@ -6,7 +6,7 @@
 /*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 13:23:09 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/16 13:24:07 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/16 17:19:45 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ int	destroy_mutex(t_data *data, t_philo *philo)
 	i = 0;
 	while (i < data->nbr_philo)
 	{
-		if (pthread_mutex_destroy(&philo[i].left_fork) != 0)
-			printf("could not destroy left fork\n");
 		if (pthread_mutex_destroy(&philo[i].right_fork) != 0)
 			printf("could not destroy right fork\n");
 		if (pthread_mutex_destroy(&philo[i].mutex_philo) != 0)
@@ -115,7 +113,7 @@ int	we_are_full(t_data *data, t_philo *philo)
 		printf("All philos have eaten %d times\n", data->meals_counter);
 		pthread_mutex_unlock(&data->message);
 		pthread_mutex_unlock(&data->cadenas_mutex);
-		return (EXIT_FAILURE);
+		return (-1);
 	}
-	return (EXIT_SUCCESS);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 18:21:22 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/16 14:29:51 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/16 17:33:50 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ void	assign_left_fork(t_data *data, t_philo *philo)
 	i = 0;
 	while (i < (data->nbr_philo - 1))
 	{
-		philo[i].left_fork = philo[i + 1].right_fork;
+		philo[i].left_fork = &philo[i + 1].right_fork;
 		i++;
 	}
-	philo[i].left_fork = philo[0].right_fork;
+	philo[i].left_fork = &philo[0].right_fork;
 }
 
 //FCT INIT_PHILO
@@ -93,7 +93,6 @@ t_philo	*init_philo(t_data *data)
 int	philo_mutex_init(t_philo *philo)
 {
 	if (pthread_mutex_init(&philo->right_fork, NULL) != 0
-		|| (pthread_mutex_init(&philo->left_fork, NULL) != 0)
 		|| (pthread_mutex_init(&philo->mutex_philo, NULL) != 0)
 		|| (pthread_mutex_init(&philo->mutex_meal, NULL) != 0))
 	{

@@ -6,7 +6,7 @@
 /*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 13:11:15 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/16 14:24:31 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/16 16:23:52 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	assign_threads(t_data *data, t_philo *philo)
 		}
 		i++;
 	}
-	return (EXIT_SUCCESS);
+	return (0);
 }
 
 // FCT CHECK_CADENAS
@@ -55,13 +55,11 @@ int	check_cadenas(t_data *data)
 	if (data->cadenas == 1)
 	{
 		pthread_mutex_unlock(&data->cadenas_mutex);
-		printf("cadenas == 1\n");
 		return (EXIT_FAILURE);
 	}
 	else
 	{
 		pthread_mutex_unlock(&data->cadenas_mutex);
-		/* printf("cadenas != 1\n"); */
 		return (EXIT_SUCCESS);
 	}
 }
