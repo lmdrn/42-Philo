@@ -6,7 +6,7 @@
 /*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 18:21:22 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/16 13:17:28 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/16 14:29:51 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_philo	*init_philo(t_data *data)
 	unsigned int	i;
 
 	i = 0;
-	philo = malloc(sizeof(t_philo *) * data->nbr_philo);
+	philo = malloc(sizeof(t_philo) * data->nbr_philo);
 	if (philo == NULL)
 		return (NULL);
 	while (i < data->nbr_philo)
