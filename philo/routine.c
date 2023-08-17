@@ -6,7 +6,7 @@
 /*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 12:06:25 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/17 15:56:27 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/17 17:39:28 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	data = &philo->data;
-	data->start_time = get_current_time();
+	data->start_time = get_current_time(); //time here is okay but when philo died not, possible data race because mpodified in main thread + inde thread !!
 	if (data->nbr_philo == 1)
 	{
 		one_philo(data);

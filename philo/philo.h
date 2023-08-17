@@ -6,7 +6,7 @@
 /*   By: lmedrano <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 16:06:09 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/16 17:21:32 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/17 17:38:33 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct s_data
 	pthread_mutex_t		message;
 	long long int		start_time;
 	pthread_mutex_t		cadenas_mutex;
+	pthread_mutex_t		mutex_meal; // use general mutex to modify shared variables into philo
+	pthread_mutex_t		mutex_lastmeal; // use general mutex to modify shared variables into philo
 	int					cadenas;
 }	t_data;
 
@@ -40,8 +42,6 @@ typedef struct s_philo
 	pthread_t			thread;
 	int					meals_eaten;
 	unsigned long long	last_meal;
-	pthread_mutex_t		mutex_philo;
-	pthread_mutex_t		mutex_meal;
 	pthread_mutex_t		right_fork;
 	pthread_mutex_t		*left_fork;
 	t_data				data;

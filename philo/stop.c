@@ -6,7 +6,7 @@
 /*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 13:23:09 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/16 17:19:45 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/17 17:41:27 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,15 @@ int	destroy_mutex(t_data *data, t_philo *philo)
 	{
 		if (pthread_mutex_destroy(&philo[i].right_fork) != 0)
 			printf("could not destroy right fork\n");
-		if (pthread_mutex_destroy(&philo[i].mutex_philo) != 0)
-			printf("could not destroy mutex philo\n");
-		if (pthread_mutex_destroy(&philo[i].mutex_meal) != 0)
-			printf("could not destroy mutex meal\n");
 		i++;
 	}
 	if (pthread_mutex_destroy(&data->message) != 0)
 		printf("could not destroy message\n");
 	if (pthread_mutex_destroy(&data->cadenas_mutex) != 0)
+		printf("could not destroy mutex\n");
+	if (pthread_mutex_destroy(&data->mutex_meal) != 0)
+		printf("could not destroy mutex\n");
+	if (pthread_mutex_destroy(&data->mutex_lastmeal) != 0)
 		printf("could not destroy mutex\n");
 	return (0);
 }

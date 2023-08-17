@@ -6,7 +6,7 @@
 /*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 18:21:22 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/16 17:33:50 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/17 17:40:45 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ int	init_data(int ac, char **av, t_data *data)
 		data->meals_counter = -1;
 	data->cadenas = 1;
 	if (pthread_mutex_init(&data->message, NULL) != 0
-		|| pthread_mutex_init(&data->cadenas_mutex, NULL) != 0)
+		|| pthread_mutex_init(&data->cadenas_mutex, NULL) != 0
+		|| pthread_mutex_init(&data->mutex_meal, NULL) != 0
+		|| pthread_mutex_init(&data->mutex_lastmeal, NULL) != 0)
 	{
 		printf("There was an error during data mutex init\n");
 		return (EXIT_FAILURE);
@@ -78,6 +80,7 @@ t_philo	*init_philo(t_data *data)
 		return (NULL);
 	while (i < data->nbr_philo)
 	{
+		philo_mutex_init(&philo[i]);
 		philo[i].id = i + 1;
 		philo[i].meals_eaten = 0;
 		philo[i].last_meal = get_current_time();
@@ -92,9 +95,7 @@ t_philo	*init_philo(t_data *data)
 
 int	philo_mutex_init(t_philo *philo)
 {
-	if (pthread_mutex_init(&philo->right_fork, NULL) != 0
-		|| (pthread_mutex_init(&philo->mutex_philo, NULL) != 0)
-		|| (pthread_mutex_init(&philo->mutex_meal, NULL) != 0))
+	if (pthread_mutex_init(&philo->right_fork, NULL) != 0)
 	{
 		printf("Error creating philo mutex %d\n", philo->id);
 		return (EXIT_FAILURE);
