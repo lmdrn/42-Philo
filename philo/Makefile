@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lmedrano <lmedrano@student.42lausanne.ch>  +#+  +:+       +#+         #
+#    By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/20 21:10:54 by lmedrano          #+#    #+#              #
-#    Updated: 2023/08/13 17:21:50 by lmedrano         ###   ########.fr        #
+#    Updated: 2023/08/17 15:57:01 by lmedrano         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ CC 		= gcc
 
 CFLAGS		= -Wall -Werror -Wextra
 
-# CFLAGS		+= -fsanitize=address -g3 
+CFLAGS		+= -fsanitize=thread -g3 
 
 RM		= rm -rf
 

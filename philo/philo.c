@@ -6,7 +6,7 @@
 /*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 12:52:09 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/16 17:33:50 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/17 15:56:07 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,15 @@ int	main(int ac, char **av)
 	if (philo == NULL)
 	{
 		printf("init philo error\n");
-		destroy_mutex(&data, philo);
-		destroy_threads(&data, philo);
 		return (EXIT_FAILURE);
 	}
 	if (faucheuse(&data, philo) != 0)
 	{
 		printf("faucheuse did not take any lives\n");
-		destroy_mutex(&data, philo);
-		destroy_threads(&data, philo);
 		return (EXIT_FAILURE);
 	}
 	destroy_mutex(&data, philo);
 	destroy_threads(&data, philo);
-	/* ft_exit(&data, philo); */
 	return (0);
 }
 

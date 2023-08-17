@@ -6,7 +6,7 @@
 /*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 13:11:15 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/16 16:23:52 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/17 15:56:31 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	assign_threads(t_data *data, t_philo *philo)
 	unsigned int	i;
 
 	i = 0;
-	data->start_time = get_current_time();
 	while (i < data->nbr_philo)
 	{
 		if (pthread_create(&philo[i].thread, NULL, routine, &philo[i]) != 0)
