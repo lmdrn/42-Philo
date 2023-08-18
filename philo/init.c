@@ -6,7 +6,7 @@
 /*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 18:21:22 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/17 17:40:45 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/18 22:59:41 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,16 @@ int	init_data(int ac, char **av, t_data *data)
 	else
 		data->meals_counter = -1;
 	data->cadenas = 1;
+	data->philo = malloc(sizeof(t_philo) * data->nbr_philo);
+	if (data->philo == NULL)
+		return (EXIT_FAILURE);
 	if (pthread_mutex_init(&data->message, NULL) != 0
-		|| pthread_mutex_init(&data->cadenas_mutex, NULL) != 0
-		|| pthread_mutex_init(&data->mutex_meal, NULL) != 0
-		|| pthread_mutex_init(&data->mutex_lastmeal, NULL) != 0)
+		|| pthread_mutex_init(&data->cadenas_mutex, NULL) != 0)
 	{
 		printf("There was an error during data mutex init\n");
 		return (EXIT_FAILURE);
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 //FCT ASSIGN_LEFT_FORK
@@ -49,17 +50,17 @@ int	init_data(int ac, char **av, t_data *data)
 // avec le voisin de gauche
 // vérifie que le dernier philo prend donc bien
 // la fourchette du 1er philo et non de philo + 1
-void	assign_left_fork(t_data *data, t_philo *philo)
+void	assign_left_fork(t_data *data)
 {
 	unsigned int	i;
 
 	i = 0;
 	while (i < (data->nbr_philo - 1))
 	{
-		philo[i].left_fork = &philo[i + 1].right_fork;
+		data->philo[i].left_fork = &data->philo[i + 1].right_fork;
 		i++;
 	}
-	philo[i].left_fork = &philo[0].right_fork;
+	data->philo[i].left_fork = &data->philo[0].right_fork;
 }
 
 //FCT INIT_PHILO
@@ -69,36 +70,27 @@ void	assign_left_fork(t_data *data, t_philo *philo)
 // et les données générales (data)
 // Appelle également philo_mutex_init 
 // pour initialiser les mutex spécifiques au philosophe.
-t_philo	*init_philo(t_data *data)
+int	init_philo(t_data *data)
 {
-	t_philo			*philo;
 	unsigned int	i;
 
 	i = 0;
-	philo = malloc(sizeof(t_philo) * data->nbr_philo);
-	if (philo == NULL)
-		return (NULL);
 	while (i < data->nbr_philo)
 	{
-		philo_mutex_init(&philo[i]);
-		philo[i].id = i + 1;
-		philo[i].meals_eaten = 0;
-		philo[i].last_meal = get_current_time();
-		philo[i].data = *data;
-		philo_mutex_init(&philo[i]);
+		data->philo[i].id = i + 1;
+		data->philo[i].meals_eaten = 0;
+		data->philo[i].last_meal = get_current_time();
+		data->philo[i].data = data;
+		if (pthread_mutex_init(&data->philo[i].right_fork, NULL) != 0
+			|| pthread_mutex_init(&data->philo[i].mutex_lastmeal, NULL) != 0
+			|| pthread_mutex_init(&data->philo[i].mutex_meal, NULL) != 0)
+		{
+			printf("Error creating philo mutex %d\n", data->philo[i].id);
+			return (EXIT_FAILURE);
+		}
 		i++;
 	}
-	assign_left_fork(data, philo);
-	assign_threads(data, philo);
-	return (philo);
-}
-
-int	philo_mutex_init(t_philo *philo)
-{
-	if (pthread_mutex_init(&philo->right_fork, NULL) != 0)
-	{
-		printf("Error creating philo mutex %d\n", philo->id);
-		return (EXIT_FAILURE);
-	}
+	assign_left_fork(data);
+	assign_threads(data);
 	return (EXIT_SUCCESS);
 }

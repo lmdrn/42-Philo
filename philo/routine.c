@@ -6,7 +6,7 @@
 /*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 12:06:25 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/17 17:39:28 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/18 23:00:31 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,23 @@
 void	*routine(void *arg)
 {
 	t_philo			*philo;
-	t_data			*data;
 
 	philo = (t_philo *)arg;
-	data = &philo->data;
-	data->start_time = get_current_time(); //time here is okay but when philo died not, possible data race because mpodified in main thread + inde thread !!
-	if (data->nbr_philo == 1)
-	{
-		one_philo(data);
-		return (EXIT_SUCCESS);
-	}
-	if (philo->id % 2)
+	if (philo->id % 2 == 0)
 		usleep(500);
-	while (check_cadenas(data))
+	while (check_cadenas(philo))
 	{
-		if (check_cadenas(data))
-			philo_eats(data, philo);
-		if (check_cadenas(data))
-			philo_sleeps(data, philo);
+		philo_eats(philo);
+		if (check_cadenas(philo) == 0)
+			break ;
+		philo_sleeps(philo);
+		if (check_cadenas(philo) == 0)
+			break ;
+		philo_thinks(philo);
+		if (check_cadenas(philo) == 0)
+			break ;
 	}
-	return (0);
+	return (NULL);
 }
 
 // FCT FORKS / EAT / SLEEP / THINK
@@ -53,77 +50,78 @@ void	*routine(void *arg)
 // Respecte la condition check_cadenas(data) avant de procéder,
 // ce qui assure qu'elles n'exécutent ces actions 
 // que si le cadenas est verrouillé.
-void	philo_forks(t_data *data, t_philo *philo)
+void	philo_forks(t_philo *philo)
 {
-	if (check_cadenas(data))
+	if (check_cadenas(philo))
 	{
 		pthread_mutex_lock(&philo->right_fork);
-		pthread_mutex_lock(&data->message);
-		if (check_cadenas(data))
+		pthread_mutex_lock(&philo->data->message);
+		if (check_cadenas(philo))
 		{
-			printf("%llu %d has taken a fork\n", time_passed(data->start_time,
+			printf("%llu %d has taken a fork\n",
+				time_passed(philo->data->start_time,
 					get_current_time()), philo->id);
 		}
 		pthread_mutex_lock(philo->left_fork);
-		if (check_cadenas(data))
+		if (check_cadenas(philo))
 		{
-			printf("%llu %d has taken a fork\n", time_passed(data->start_time,
+			printf("%llu %d has taken a fork\n",
+				time_passed(philo->data->start_time,
 					get_current_time()), philo->id);
 		}
-		pthread_mutex_unlock(&data->message);
+		pthread_mutex_unlock(&philo->data->message);
 	}
 }
 
-void	philo_eats(t_data *data, t_philo *philo)
+void	philo_eats(t_philo *philo)
 {
-	if (check_cadenas(data))
+	if (check_cadenas(philo))
 	{
-		philo_forks(data, philo);
-		pthread_mutex_lock(&data->message);
-		if (check_cadenas(data))
+		philo_forks(philo);
+		pthread_mutex_lock(&philo->data->message);
+		if (check_cadenas(philo))
 		{
-			printf("%llu %d is eating\n", time_passed(data->start_time,
+			printf("%llu %d is eating\n", time_passed(philo->data->start_time,
 					get_current_time()), philo->id);
 		}
-		pthread_mutex_unlock(&data->message);
-		ft_usleep(data->time_to_eat);
+		pthread_mutex_unlock(&philo->data->message);
+		ft_usleep(philo->data->time_to_eat);
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(&philo->right_fork);
-		pthread_mutex_lock(&philo->mutex_philo);
+		pthread_mutex_lock(&philo->mutex_lastmeal);
 		philo->last_meal = get_current_time();
-		pthread_mutex_unlock(&philo->mutex_philo);
+		pthread_mutex_unlock(&philo->mutex_lastmeal);
 		pthread_mutex_lock(&philo->mutex_meal);
 		philo->meals_eaten += 1;
 		pthread_mutex_unlock(&philo->mutex_meal);
 	}
 }
 
-void	philo_sleeps(t_data *data, t_philo *philo)
+void	philo_sleeps(t_philo *philo)
 {
-	if (check_cadenas(data))
+	if (check_cadenas(philo))
 	{
-		pthread_mutex_lock(&data->message);
-		if (check_cadenas(data))
+		pthread_mutex_lock(&philo->data->message);
+		if (check_cadenas(philo))
 		{
-			printf("%llu %d is sleeping\n", time_passed(data->start_time,
+			printf("%llu %d is sleeping\n", time_passed(philo->data->start_time,
 					get_current_time()), philo->id);
 		}
-		pthread_mutex_unlock(&data->message);
-		ft_usleep(data->time_to_sleep);
-		philo_thinks(data, philo);
+		pthread_mutex_unlock(&philo->data->message);
+		ft_usleep(philo->data->time_to_sleep);
 	}
 }
 
-void	philo_thinks(t_data *data, t_philo *philo)
+void	philo_thinks(t_philo *philo)
 {
-	if (check_cadenas(data))
+	if (check_cadenas(philo))
 	{
-		pthread_mutex_lock(&data->message);
-		if (check_cadenas(data))
+		pthread_mutex_lock(&philo->data->message);
+		if (check_cadenas(philo))
 		{
-			printf("%llu %d is thinking\n", time_passed(data->start_time,
+			printf("%llu %d is thinking\n", time_passed(philo->data->start_time,
 					get_current_time()), philo->id);
 		}
-		pthread_mutex_unlock(&data->message);
+		pthread_mutex_unlock(&philo->data->message);
 	}
 }
