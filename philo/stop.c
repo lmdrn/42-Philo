@@ -6,7 +6,7 @@
 /*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 13:23:09 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/18 22:35:24 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:08:55 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ int	destroy_threads(t_data *data)
 		if (pthread_join(data->philo[i].thread, NULL) != 0)
 		{
 			printf("Error destroying philo_thread %d\n", data->philo[i].id);
-			return (EXIT_FAILURE);
+			return (1);
 		}
 		printf("Philo_thread %d exited\n", data->philo[i].id);
 		i++;
 	}
-	return (EXIT_SUCCESS);
+	return (0);
 }
 
 void	free_the_philo(t_data *data)
@@ -81,12 +81,12 @@ unsigned int	time_to_die(t_data *data)
 					get_current_time()), data->philo->id);
 			pthread_mutex_unlock(&data->message);
 			pthread_mutex_unlock(&data->philo[i].mutex_lastmeal);
-			return (EXIT_FAILURE);
+			return (1);
 		}
 		pthread_mutex_unlock(&data->philo[i].mutex_lastmeal);
 		i++;
 	}
-	return (EXIT_SUCCESS);
+	return (0);
 }
 
 //FCT WE_ARE_FULL
@@ -107,18 +107,18 @@ int	we_are_full(t_data *data)
 			if (data->philo[i].meals_eaten < data->meals_counter)
 			{
 				pthread_mutex_unlock(&data->philo[i].mutex_meal);
-				return (EXIT_SUCCESS);
+				return (0);
 			}
 			pthread_mutex_unlock(&data->philo[i].mutex_meal);
 			i++;
 		}
 		pthread_mutex_lock(&data->cadenas_mutex);
-		data->cadenas = 0;
+			data->cadenas = 0;
 		pthread_mutex_unlock(&data->cadenas_mutex);
 		pthread_mutex_lock(&data->message);
 		printf("All philos have eaten %d times\n", data->meals_counter);
 		pthread_mutex_unlock(&data->message);
-		return (-1);
+		return (1);
 	}
 	return (0);
 }

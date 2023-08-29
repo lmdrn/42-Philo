@@ -6,7 +6,7 @@
 /*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 18:21:22 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/18 22:59:41 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/29 14:53:52 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ int	init_data(int ac, char **av, t_data *data)
 	data->cadenas = 1;
 	data->philo = malloc(sizeof(t_philo) * data->nbr_philo);
 	if (data->philo == NULL)
-		return (EXIT_FAILURE);
+		return (1);
 	if (pthread_mutex_init(&data->message, NULL) != 0
 		|| pthread_mutex_init(&data->cadenas_mutex, NULL) != 0)
 	{
 		printf("There was an error during data mutex init\n");
-		return (EXIT_FAILURE);
+		return (1);
 	}
-	return (EXIT_SUCCESS);
+	return (0);
 }
 
 //FCT ASSIGN_LEFT_FORK
@@ -86,11 +86,11 @@ int	init_philo(t_data *data)
 			|| pthread_mutex_init(&data->philo[i].mutex_meal, NULL) != 0)
 		{
 			printf("Error creating philo mutex %d\n", data->philo[i].id);
-			return (EXIT_FAILURE);
+			return (1);
 		}
 		i++;
 	}
 	assign_left_fork(data);
 	assign_threads(data);
-	return (EXIT_SUCCESS);
+	return (0);
 }

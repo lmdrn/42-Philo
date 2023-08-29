@@ -6,7 +6,7 @@
 /*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 13:11:15 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/18 22:21:22 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:09:24 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	assign_threads(t_data *data)
 	if (data->nbr_philo == 1)
 	{
 		one_philo(data);
-		return (EXIT_SUCCESS);
+		return (0);
 	}
 	while (i < data->nbr_philo)
 	{
@@ -43,7 +43,7 @@ int	assign_threads(t_data *data)
 				routine, &data->philo[i]) != 0)
 		{
 			printf("Error creating philo_thread %d\n", data->philo[i].id);
-			return (EXIT_FAILURE);
+			return (1);
 		}
 		i++;
 	}
@@ -61,11 +61,11 @@ int	check_cadenas(t_philo *philo)
 	if (philo->data->cadenas == 1)
 	{
 		pthread_mutex_unlock(&philo->data->cadenas_mutex);
-		return (EXIT_FAILURE);
+		return (1);
 	}
 	else
 	{
 		pthread_mutex_unlock(&philo->data->cadenas_mutex);
-		return (EXIT_SUCCESS);
+		return (0);
 	}
 }

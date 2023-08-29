@@ -6,7 +6,7 @@
 /*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 16:06:09 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/18 22:17:04 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/29 14:53:52 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 typedef struct s_philo	t_philo;
 typedef struct s_data	t_data;
 
-
 /* ooo ----- ooo STRUCTS ooo ----- ooo */
 
 typedef struct s_philo
@@ -31,7 +30,7 @@ typedef struct s_philo
 	pthread_t			thread;
 	int					meals_eaten;
 	unsigned long long	last_meal;
-	pthread_mutex_t		right_fork;
+	pthread_mutex_t		*right_fork;
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		mutex_meal;
 	pthread_mutex_t		mutex_lastmeal;
