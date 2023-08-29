@@ -6,7 +6,7 @@
 /*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 12:52:09 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/23 15:17:37 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/29 18:20:48 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ int	main(int ac, char **av)
 		printf("Args error\n");
 		return (1);
 	}
-	if (init_data(ac, av, &data) != 0)
-		ft_exit("Init data error\n", &data);
-	if (init_philo(&data) != 0)
-		ft_exit("Init philo error\n", &data);
-	if (faucheuse(&data) != 0)
-		ft_exit("faucheuse ended simulation\n", &data);
+	/* if (init_data(ac, av, &data) != 0) */
+	/* 	ft_exit("Init data error\n", &data); */
+	/* if (init_philo(&data) != 0) */
+	/* 	ft_exit("Init philo error\n", &data); */
+	/* if (faucheuse(&data) != 0) */
+	/* 	ft_exit("faucheuse ended simulation\n", &data); */
 	ft_exit("Threads exited, mutexes destroyed and philos freed\n", &data);
 	return (0);
 }

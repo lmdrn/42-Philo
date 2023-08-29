@@ -6,7 +6,7 @@
 /*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 12:06:25 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/18 23:00:31 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/08/29 18:20:48 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ void	*routine(void *arg)
 		usleep(500);
 	while (check_cadenas(philo))
 	{
+		philo_forks(philo);
+		if (check_cadenas(philo) == 0)
+			break ;
 		philo_eats(philo);
 		if (check_cadenas(philo) == 0)
 			break ;
@@ -77,7 +80,6 @@ void	philo_eats(t_philo *philo)
 {
 	if (check_cadenas(philo))
 	{
-		philo_forks(philo);
 		pthread_mutex_lock(&philo->data->message);
 		if (check_cadenas(philo))
 		{
