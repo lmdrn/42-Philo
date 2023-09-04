@@ -6,7 +6,7 @@
 /*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 12:07:50 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/09/04 14:43:34 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/09/04 15:26:16 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,4 @@ void	philo_dies(t_philo *philo)
 	pthread_mutex_lock(philo->data->cadenas);
 	philo->data->locked = 1;
 	pthread_mutex_unlock(philo->data->cadenas);
-	/* pthread_mutex_unlock(philo->left_fork); */
-	/* pthread_mutex_unlock(philo->right_fork); */
 }

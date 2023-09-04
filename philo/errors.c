@@ -6,18 +6,16 @@
 /*   By: lmedrano <lmedrano@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:10:20 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/09/04 14:49:17 by lmedrano         ###   ########.fr       */
+/*   Updated: 2023/09/04 15:22:01 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-//careful pas le droit à exit alors make quivalent later on !
-
-void	ft_error(char *str)
+int	ft_error(char *str)
 {
 	printf("%s", str);
-	exit(1);
+	return (1);
 }
 
 void	message(char *str, t_philo *philo)
