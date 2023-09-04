@@ -3,20 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   timing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: lmedrano <lmedrano@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/11 12:41:17 by lmedrano          #+#    #+#             */
-/*   Updated: 2023/08/16 16:42:48 by lmedrano         ###   ########.fr       */
+/*   Created: 2023/09/04 11:40:35 by lmedrano          #+#    #+#             */
+/*   Updated: 2023/09/04 13:45:53 by lmedrano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-//FCT GET_CURRENT_TIME
-// Utilise gettimeofday pour obtenir le temps actuel
-// en millisecondes depuis une référence temporelle.
-// Renvoie le temps actuel en millisecondes.
-unsigned long long	get_current_time(void)
+long int	get_current_time(void)
 {
 	struct timeval		time;
 	unsigned long long	current_time;
@@ -26,24 +22,13 @@ unsigned long long	get_current_time(void)
 	return (current_time);
 }
 
-//FCT TIME_PASSED
-//permet de calculer la durée écoulée entre deux moments dans le temps.
-unsigned long long	time_passed(unsigned long long start,
-	unsigned long long end)
+void	ft_usleep(long int time)
 {
-	return (end - start);
-}
-
-void	ft_usleep(unsigned long long time)
-{
-	unsigned long long int	sleep;
-	unsigned long long int	current_time;
+	long int	current_time;
 
 	current_time = get_current_time();
-	sleep = time_passed(current_time, get_current_time());
-	while (sleep < time)
+	while ((get_current_time() - current_time) < time)
 	{
-		sleep = time_passed(current_time, get_current_time());
 		usleep(100);
 	}	
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lmedrano <lmedrano@student.42lausanne.c    +#+  +:+       +#+         #
+#    By: lmedrano <lmedrano@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/07/20 21:10:54 by lmedrano          #+#    #+#              #
-#    Updated: 2023/08/17 15:57:01 by lmedrano         ###   ########.fr        #
+#    Created: 2023/09/04 12:24:33 by lmedrano          #+#    #+#              #
+#    Updated: 2023/09/04 12:39:58 by lmedrano         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ ORANGE 		= \033[38;5;215m
 GREEN 		= \033[38;5;82m
 RESET 		= \033[0m
 
-SRCS 		= philo.c utils.c args.c init.c timing.c threads.c routine.c \
-			  stop.c
+SRCS 		= philo.c utils.c init.c checks.c timing.c threads.c routine.c \
+			errors.c args.c
 
 OBJS 		= ${SRCS:.c=.o}
 
@@ -60,4 +60,3 @@ fclean:		clean
 re:			fclean all
 
 .PHONY:		all clean fclean re
-
